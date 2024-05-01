@@ -18,12 +18,12 @@ export default async function HomePage() {
         <div className="flex flex-1 items-center justify-between">
           <div>
             <h1 className="text-lg font-bold text-accent-foreground">
-              All Copilots ✨
+              SAS Copilots ✨
             </h1>
           </div>
           <div className="space-x-2">
             <Button asChild>
-              <Link href="/create/copilot">Create Copilot</Link>
+              <Link href="/create/copilot">Create SAS Assistant</Link>
             </Button>
           </div>
         </div>
@@ -37,14 +37,6 @@ export default async function HomePage() {
                 <h1 className="text-lg font-bold text-accent-foreground">
                   Learn OpenCopilot with video tutorials
                 </h1>
-                <p className="line-clamp-1">
-                  In this course you’ll find everything you need to get started
-                  with Opencopilot from the ground up.
-                </p>
-              </div>
-              <Button asChild>
-                <Link href="https://opencopilot.so/#tuts">Learn</Link>
-              </Button>
             </div>
             <CloseBtn className="absolute -right-1 -top-1 rounded-full border border-border bg-white p-1 opacity-0 shadow group-hover:opacity-100 ">
               <XIcon className="h-4 w-4" />
