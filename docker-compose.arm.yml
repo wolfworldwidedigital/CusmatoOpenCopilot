@@ -6,12 +6,10 @@ services:
       context: ./llm-server
       dockerfile: Dockerfile
       target: ${TARGET}
-    image: codebanesr/llm-server:latest
+    image: wolfworldwide/llm-server:latest
     volumes:
       - ./llm-server:/app
       - shared_data:/app/shared_data
-    networks:
-      - opencopilot-net
     env_file:
       - llm-server/.env
     ports:
@@ -30,19 +28,15 @@ services:
       - "6379:6379"
     volumes:
       - redis_data:/data
-    networks:
-      - opencopilot-net
 
   workers:
     restart: unless-stopped
     build:
       context: ./llm-server
       dockerfile: worker.Dockerfile
-    image: codebanesr/workers:latest  # Add this line
+    image: wolfworldwide/workers:latest  # Add this line
     deploy:
       replicas: 1
-    networks:
-      - opencopilot-net
     volumes:
       - shared_data:/app/shared_data
     env_file:
@@ -60,13 +54,12 @@ services:
     build:
       context: ./dashboard
       dockerfile: Dockerfile
-    image: codebanesr/dashboard:latest  # Add this line
+    image: wolfworldwide/dashboard:latest  # Add this line
     ports:
       - 8000:8000
     volumes:
       - shared_data:/app/shared_data
-    networks:
-      - opencopilot-net
+
     depends_on:
       - llm-server
 
@@ -84,8 +77,7 @@ services:
       MYSQL_PASSWORD: dbpass
     volumes:
       - database:/var/lib/mysql
-    networks:
-      - opencopilot-net
+
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 10s
@@ -99,8 +91,7 @@ services:
       - 6334:6334
     volumes:
       - qdrant_storage:/qdrant/storage
-    networks:
-      - opencopilot-net
+
 
 
   nginx:
@@ -110,8 +101,7 @@ services:
       - "8888:80"
     volumes:
       - ./container_config/nginx.conf:/etc/nginx/nginx.conf
-    networks:
-      - opencopilot-net
+
     depends_on:
       mysql:
         condition: service_healthy
@@ -119,11 +109,7 @@ services:
         condition: service_started
       llm-server:
         condition: service_started
-
-networks:
-  opencopilot-net:
-    name: opencopilot-net
-
+        
 volumes:
   shared_data:
   database:
