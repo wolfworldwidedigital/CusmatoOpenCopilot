@@ -109,7 +109,8 @@ services:
         condition: service_started
       llm-server:
         condition: service_started
-        
+
+
 volumes:
   shared_data:
   database:

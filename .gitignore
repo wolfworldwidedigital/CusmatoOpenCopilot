@@ -24,3 +24,5 @@ yarn-error.log
 test.html
 .aider*
 logs
+.nx/installation
+.nx/cache
